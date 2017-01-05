@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 set -e +o pipefail
 
-echo -e "
-Blackbaud - SKY UX Travis - After Success
-"
+echo -e "Blackbaud - SKY UX Travis - After Success"
+echo -e "$NPM_TEST"
 
 # Necessary to stop pull requests from forks from running outside of Savage
 # Publish a tag to NPM
