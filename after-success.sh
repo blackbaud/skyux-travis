@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e +o pipefail
+set -e
 
 echo -e "Blackbaud - SKY UX Travis - After Success"
 
