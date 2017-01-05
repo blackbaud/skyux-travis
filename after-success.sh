@@ -2,13 +2,17 @@
 set -e +o pipefail
 
 echo -e "Blackbaud - SKY UX Travis - After Success"
-echo -e "$NPM_TEST"
 
 # Necessary to stop pull requests from forks from running outside of Savage
 # Publish a tag to NPM
 if [[ "$TRAVIS_SECURE_ENV_VARS" == "true" && -n "$TRAVIS_TAG" ]]; then
+  echo -e "Logging in to NPM..."
   echo -e "blackbaud\n$NPM_PASSWORD\nsky-savage@blackbaud.com" | npm login
+  echo -e "Publishing to NPM..."
   npm publish --access public
+  echo -e "Logging out of NPM..."
   npm logout
   echo -e "Successfully published to NPM.\n"
+else
+  echo -c "Ignoring Script"
 fi
