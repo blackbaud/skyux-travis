@@ -2,13 +2,7 @@
 set -e +o pipefail
 
 echo -e "
- 888888ba  dP                   dP       dP                               dP 
- 88    `8b 88                   88       88                               88 
-a88aaaa8P' 88 .d8888b. .d8888b. 88  .dP  88d888b. .d8888b. dP    dP .d888b88 
- 88   `8b. 88 88'  `88 88'  `"" 88888"   88'  `88 88'  `88 88    88 88'  `88 
- 88    .88 88 88.  .88 88.  ... 88  `8b. 88.  .88 88.  .88 88.  .88 88.  .88 
- 88888888P dP `88888P8 `88888P' dP   `YP 88Y8888' `88888P8 `88888P' `88888P8 
-ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+Blackbaud - SKY UX Travis - After Success
 "
 
 # Necessary to stop pull requests from forks from running outside of Savage
