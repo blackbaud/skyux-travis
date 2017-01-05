@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e +o pipefail
 
-say "
+echo -e "
  888888ba  dP                   dP       dP                               dP 
  88    `8b 88                   88       88                               88 
 a88aaaa8P' 88 .d8888b. .d8888b. 88  .dP  88d888b. .d8888b. dP    dP .d888b88 
