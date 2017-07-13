@@ -12,10 +12,6 @@ function publish {
 # Necessary to stop pull requests from forks from running outside of Savage
 # Publish a tag to NPM
 if [[ "$TRAVIS_SECURE_ENV_VARS" == "true" && -n "$TRAVIS_TAG" ]]; then
-
-  skyux build-public-library
-  cd dist
-
   if [[ $NPM_TOKEN ]]; then
 
     echo -e "Logging in via NPM_TOKEN"
