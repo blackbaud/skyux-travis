@@ -8,8 +8,7 @@ echo -e "Blackbaud - SKY UX Travis - Library After Success"
 if [[ "$TRAVIS_SECURE_ENV_VARS" == "true" && -n "$TRAVIS_TAG" ]]; then
   skyux build-public-library
   cd dist
-  chmod +x ./after-success.sh
-  ./after-success.sh
+  bash <(curl -s https://blackbaud.github.io/skyux-travis/after-success.sh)
 else
   echo -e "Ignoring Script"
 fi
