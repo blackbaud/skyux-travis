@@ -7,6 +7,13 @@ function publish {
   echo -e "Publishing to NPM..."
   npm publish --access public
   echo -e "Successfully published to NPM.\n"
+  notifySlack "$TRAVIS_REPO_SLUG version $TRAVIS_TAG published to NPM."
+}
+
+notifySlack() {
+  if [[ -n $SLACK_WEBHOOK ]]; then
+    curl -X POST --data-urlencode 'payload={"text":"$1"}' $SLACK_WEBHOOK
+  fi
 }
 
 # Necessary to stop pull requests from forks from running outside of Savage
