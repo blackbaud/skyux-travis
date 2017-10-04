@@ -5,12 +5,23 @@ echo -e "Blackbaud - SKY UX Travis - After Success"
 
 function publish {
   echo -e "Publishing to NPM..."
-  npm publish --access public
+  #npm publish --access public
   echo -e "Successfully published to NPM.\n"
+  notifySlack "$TRAVIS_REPO_SLUG \`$TRAVIS_TAG\` published to NPM.\nhttps://github.com/$TRAVIS_REPO_SLUG"
+}
+
+notifySlack() {
+  if [[ -n $SLACK_WEBHOOK ]]; then
+    echo -e "Notifying Slack."
+    curl -X POST --data-urlencode 'payload={"text":"'"$1"'"}' $SLACK_WEBHOOK
+  else
+    echo -e "No webhook available for Slack notification."
+  fi
 }
 
 # Necessary to stop pull requests from forks from running outside of Savage
 # Publish a tag to NPM
+echo "$TRAVIS_SECURE_ENV_VARS"
 if [[ "$TRAVIS_SECURE_ENV_VARS" == "true" && -n "$TRAVIS_TAG" ]]; then
   if [[ $NPM_TOKEN ]]; then
 
