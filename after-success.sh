@@ -7,7 +7,7 @@ function publish {
   echo -e "Publishing to NPM..."
   npm publish --access public
   echo -e "Successfully published to NPM.\n"
-  notifySlack "$TRAVIS_REPO_SLUG \`$TRAVIS_TAG\` published to NPM.\nhttps://github.com/$TRAVIS_REPO_SLUG"
+  notifySlack "$TRAVIS_REPO_SLUG \`$TRAVIS_TAG\` published to NPM.\nhttps://github.com/$TRAVIS_REPO_SLUG/blob/master/CHANGELOG.md"
 }
 
 notifySlack() {
