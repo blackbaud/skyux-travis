@@ -4,3 +4,4 @@ Scripts used to centrally manage Travis deployments. These scripts use GitHub Pa
 Repos that use these scripts include:
 - https://github.com/blackbaud/skyux2
 - https://github.com/blackbaud/skyux-builder
+- https://github.com/blackbaud/stache2
