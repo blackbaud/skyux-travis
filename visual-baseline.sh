@@ -15,7 +15,7 @@ if [[ $TRAVIS_BRANCH =~ $SAVAGE_BRANCH ]]; then
   exit 0
 fi
 
-echo -e "Checking for new baseline images...\n"
+echo -e "Checking for new baseline screenshots...\n"
 
 git config --global user.email "sky-build-user@blackbaud.com"
 git config --global user.name "Blackbaud SKY Build User"
@@ -30,9 +30,9 @@ if ! git diff-index --quiet HEAD --; then
   git checkout $TRAVIS_BRANCH --quiet
   git stash pop
   git add screenshots-baseline/
-  git commit -m "Travis build $TRAVIS_BUILD_NUMBER pushed new visual baseline images [ci skip]"
+  git commit -m "Travis build $TRAVIS_BUILD_NUMBER pushed new visual baseline screenshots [ci skip]"
   git push -fq origin $TRAVIS_BRANCH > /dev/null
-  echo -e "Visual baseline images successfully updated.\n"
+  echo -e "Visual baseline screenshots successfully updated.\n"
 else
-  echo -e "No new baseline images found.\n"
+  echo -e "No new baseline screenshots found.\n"
 fi
