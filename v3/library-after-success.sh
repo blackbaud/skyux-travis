@@ -5,7 +5,12 @@ set -e
 if [[ "$TRAVIS_SECURE_ENV_VARS" == "true" ]]; then
 
   # Save any new baseline screenshots.
-  node ./node_modules/@blackbaud/skyux-builder-config/scripts/visual-baselines.js
+  output=$(node ./node_modules/@blackbaud/skyux-builder-config/scripts/visual-baselines.js)
+
+   # Capture the script's exit code.
+   # https://stackoverflow.com/questions/40774511/exit-bash-script-if-subprocess-exits-with-non-zero-code
+  status=$?
+  (( status )) && exit 1
 
   # Only run releases during a git tag build.
   if [[ -n "$TRAVIS_TAG" ]]; then
