@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 set -e
 
+# Users who can release
+SKYUX_TEAM=(
+  BLACKBAUD-ALEXKINGMAN
+  BLACKBAUD-BOBBYEARL
+  BLACKBAUD-PAULCROWDER
+  BLACKBAUD-STEVEBRUSH
+  BLACKBAUD-TERRYHELEMS
+  BLACKBAUD-TREVORBURCH
+)
+
 echo -e "Blackbaud - SKY UX Travis - After Success"
 
 function publish {
@@ -30,25 +40,43 @@ notifySlack() {
 # Necessary to stop pull requests from forks from running outside of Savage
 # Publish a tag to NPM
 if [[ "$TRAVIS_SECURE_ENV_VARS" == "true" && -n "$TRAVIS_TAG" ]]; then
-  if [[ $NPM_TOKEN ]]; then
 
-    echo -e "Logging in via NPM_TOKEN"
-    echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
-    publish
-    echo -e "Logging out via NPM_TOKEN"
-    rm .npmrc
+  # Install the TravisCI CLI so we can easily make API calls.
+  gem install travis
 
-  elif [[ $NPM_PASSWORD ]]; then
+  # Read the uppercase GitHub username that initiated the build.
+  CREATED_BY=$(travis raw /v3/build/$TRAVIS_BUILD_ID --json --skip-completion-check | jq -r '.created_by.login' | tr 'a-z' 'A-Z' )
 
-    echo -e "Logging in via NPM_PASSWORD"
-    echo -e "blackbaud\n$NPM_PASSWORD\nsky-savage@blackbaud.com" | npm login
-    publish
-    echo -e "Logging out via NPM_PASSWORD"
-    npm logout
+  # The spaces here are extremely important as they stop false positives.
+  # For example, without them, "user" would match "username".
+  if [[ " ${SKYUX_TEAM[@]} " =~ " ${CREATED_BY} " ]]; then
+  
+    echo -e "${CREATED_BY} has permission to release."
+
+    if [[ $NPM_TOKEN ]]; then
+
+      echo -e "Logging in via NPM_TOKEN"
+      echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
+      publish
+      echo -e "Logging out via NPM_TOKEN"
+      rm .npmrc
+
+    elif [[ $NPM_PASSWORD ]]; then
+
+      echo -e "Logging in via NPM_PASSWORD"
+      echo -e "blackbaud\n$NPM_PASSWORD\nsky-savage@blackbaud.com" | npm login
+      publish
+      echo -e "Logging out via NPM_PASSWORD"
+      npm logout
+
+    else
+      echo -e "Unable to publish to NPM as no credentials are not available"
+    fi
 
   else
-    echo -e "Unable to publish to NPM as no credentials are not available"
+    echo -e "${CREATED_BY} lacks permission to release.  Please contact the SKY UX team."
   fi
+
 else
   echo -e "Ignoring Script"
 fi
