@@ -5,9 +5,11 @@ set -e
 SKYUX_TEAM=(
   BLACKBAUD-ALEXKINGMAN
   BLACKBAUD-BOBBYEARL
+  BLACKBAUD-BRANDONJONES
   BLACKBAUD-PAULCROWDER
   BLACKBAUD-STEVEBRUSH
   BLACKBAUD-TERRYHELEMS
+  BLACKBAUD-TIMPEPPER
   BLACKBAUD-TREVORBURCH
 )
 
@@ -50,7 +52,7 @@ if [[ "$TRAVIS_SECURE_ENV_VARS" == "true" && -n "$TRAVIS_TAG" ]]; then
   # The spaces here are extremely important as they stop false positives.
   # For example, without them, "user" would match "username".
   if [[ " ${SKYUX_TEAM[@]} " =~ " ${CREATED_BY} " ]]; then
-  
+
     echo -e "${CREATED_BY} has permission to release."
 
     if [[ $NPM_TOKEN ]]; then
