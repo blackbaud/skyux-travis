@@ -15,7 +15,7 @@ function publish {
     url="$url/blob/master/CHANGELOG.md"
   fi
 
-  packageName="$(node -pe "require('./package.json')['name']")"
+  packageName="$(jq -r ".name" package.json)"
   notifySlack "$packageName \`$TRAVIS_TAG\` published to NPM.\n$url"
 }
 
