@@ -15,7 +15,8 @@ function publish {
     url="$url/blob/master/CHANGELOG.md"
   fi
 
-  notifySlack "$TRAVIS_REPO_SLUG \`$TRAVIS_TAG\` published to NPM.\n$url"
+  packageName="$(node -pe "require('./package.json')['name']")"
+  notifySlack "$packageName \`$TRAVIS_TAG\` published to NPM.\n$url"
 }
 
 notifySlack() {
