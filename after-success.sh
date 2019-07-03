@@ -4,12 +4,10 @@ set -e
 echo -e "Blackbaud - SKY UX Travis - After Success"
 
 function publish {
-
   echo -e "Publishing to NPM...";
 
-  $npmTag = "latest";
-
   # If the tag includes a '-' character, we can assume it's a prerelease version.
+  $npmTag = "latest";
   if [[ $TRAVIS_TAG =~ "-" ]]; then
     $npmTag = "next";
   fi
