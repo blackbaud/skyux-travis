@@ -8,7 +8,7 @@ function publish {
 
   # If the tag includes a '-' character, we can assume it's a prerelease version.
   NPM_TAG="latest";
-  if [[ $TRAVIS_TAG =~ "-" ]]; then
+  if [[ "$TRAVIS_TAG" =~ "-" ]]; then
     NPM_TAG="next";
   fi
 
