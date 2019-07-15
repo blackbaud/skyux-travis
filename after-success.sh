@@ -7,13 +7,13 @@ function publish {
   echo -e "Publishing to NPM...";
 
   # If the tag includes a '-' character, we can assume it's a prerelease version.
-  $npmTag = "latest";
+  NPM_TAG="latest";
   if [[ $TRAVIS_TAG =~ "-" ]]; then
-    $npmTag = "next";
+    NPM_TAG="next";
   fi
 
-  echo -e "Publishing to NPM with tag '$npmTag'.";
-  npm publish --access public --tag $npmTag;
+  echo -e "Publishing to NPM with tag '$NPM_TAG'.";
+  npm publish --access public --tag $NPM_TAG;
   echo -e "Successfully published to NPM.\n"
 
   url="https://github.com/$TRAVIS_REPO_SLUG"
