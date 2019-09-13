@@ -4,7 +4,7 @@ set -e
 # Necessary to stop pull requests from forks from running.
 if [ "$TRAVIS_SECURE_ENV_VARS" == "true" ]; then
   npm install
-  npm install --no-save blackbaud/skyux-builder-config blackbaud/skyux-sdk-builder-config
+  npm install --no-save blackbaud/skyux-builder-config blackbaud/skyux-sdk-builder-config#windows-10-ie-11
 else
   echo -e "Ignoring script. Pull requests from forks are run elsewhere."
 fi
