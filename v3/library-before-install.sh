@@ -3,7 +3,7 @@ set -e
 
 # Necessary to stop pull requests from forks from running.
 if [ "$TRAVIS_SECURE_ENV_VARS" == "true" ]; then
-  npm install -g blackbaud/skyux-sdk-cli#trust-linux-remove-argv
+  npm install -g @skyux-sdk/cli
   skyux version
   skyux certs install
 else
