@@ -10,7 +10,7 @@ if [ "$TRAVIS_SECURE_ENV_VARS" == "true" ]; then
     npm run test:ci
   else
     skyux test --coverage library --platform travis
-    skyux build-public-library
+    skyux build-public-library --fullTemplateTypeCheck
     skyux e2e --platform travis
   fi
 else
