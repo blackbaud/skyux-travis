@@ -2,15 +2,15 @@
 set -e
 
 # Users who can release
-SKYUX_TEAM=(
+SKYUX_RELEASERS=(
   BLACKBAUD-ALEXKINGMAN
   BLACKBAUD-BENLAMBERT
   BLACKBAUD-BOBBYEARL
-  BLACKBAUD-BRANDONJONES
+  BLACKBAUD-ERIKAMCVEY
+  BLACKBAUD-MICHAELTIMS
   BLACKBAUD-PAULCROWDER
   BLACKBAUD-STEVEBRUSH
   BLACKBAUD-TERRYHELEMS
-  BLACKBAUD-TIMPEPPER
   BLACKBAUD-TREVORBURCH
 )
 
@@ -52,7 +52,7 @@ if [[ "$TRAVIS_SECURE_ENV_VARS" == "true" && -n "$TRAVIS_TAG" ]]; then
 
   # The spaces here are extremely important as they stop false positives.
   # For example, without them, "user" would match "username".
-  if [[ " ${SKYUX_TEAM[@]} " =~ " ${CREATED_BY} " ]]; then
+  if [[ " ${SKYUX_RELEASERS[@]} " =~ " ${CREATED_BY} " ]]; then
 
     echo -e "${CREATED_BY} has permission to release."
 
