@@ -17,10 +17,18 @@ SKYUX_RELEASERS=(
 echo -e "Blackbaud - SKY UX Travis - After Success"
 
 function publish {
-  echo -e "Publishing to NPM..."
-  npm publish --access public
+  echo -e "Publishing to NPM...";
+
+  # If the tag includes a '-' character, we can assume it's a prerelease version.
+  NPM_TAG="latest";
+  if [[ "$TRAVIS_TAG" =~ "-" ]]; then
+    NPM_TAG="next";
+  fi
+
+  echo -e "Publishing to NPM with tag '$NPM_TAG'.";
+  npm publish --access public --tag $NPM_TAG;
   echo -e "Successfully published to NPM.\n"
-  
+
   url="https://github.com/$TRAVIS_REPO_SLUG"
 
   # Create a message, linking to CHANGELOG.md if it exists
@@ -28,7 +36,8 @@ function publish {
     url="$url/blob/master/CHANGELOG.md"
   fi
 
-  notifySlack "$TRAVIS_REPO_SLUG \`$TRAVIS_TAG\` published to NPM.\n$url"
+  packageName="$(jq -r ".name" package.json)"
+  notifySlack "$packageName \`$TRAVIS_TAG\` published to NPM.\n$url"
 }
 
 notifySlack() {
