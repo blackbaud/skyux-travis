@@ -20,7 +20,7 @@ function publish {
 
   # Create a message, linking to CHANGELOG.md if it exists
   if [[ -e "CHANGELOG.md" ]]; then
-    url="$url/blob/master/CHANGELOG.md"
+    url="$url/blob/$TRAVIS_TAG/CHANGELOG.md"
   fi
 
   packageName="$(jq -r ".name" package.json)"
