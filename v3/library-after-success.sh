@@ -21,7 +21,7 @@ if [[ "$TRAVIS_SECURE_ENV_VARS" == "true" ]]; then
   # Only run releases during a git tag build.
   if [[ -n "$TRAVIS_TAG" ]]; then
 
-    echo -e "Process git tag build..."
+    echo -e "Processing git tag build..."
 
     # Allow package.json to specify a custom build script.
     if npm run | grep -q build:ci; then
