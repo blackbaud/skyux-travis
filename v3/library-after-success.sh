@@ -4,12 +4,18 @@ set -e
 # Necessary to stop pull requests from forks from running.
 if [[ "$TRAVIS_SECURE_ENV_VARS" == "true" ]]; then
 
+  echo -e "Must not be PR since TRAVIS_SECURE_ENV_VARS is set to true."
+
   # Save any new baseline screenshots.
   if [ -d "./node_modules/@skyux-sdk/builder" ]; then
+    echo -e "Running @skyux-sdk/builder-config visual baselines..."
     output=$(node ./node_modules/@skyux-sdk/builder-config/scripts/visual-baselines.js) || exit
   else
+    echo -e "Running @blackbaud/skyux-builder-config visual baselines..."
     output=$(node ./node_modules/@blackbaud/skyux-builder-config/scripts/visual-baselines.js) || exit
   fi
+
+  echo $output
 
   # Only run releases during a git tag build.
   if [[ -n "$TRAVIS_TAG" ]]; then
