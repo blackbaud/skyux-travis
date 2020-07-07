@@ -4,6 +4,8 @@ set -e
 # Necessary to stop pull requests from forks from running.
 if [[ "$TRAVIS_SECURE_ENV_VARS" == "true" ]]; then
 
+  echo -e "Must not be PR since TRAVIS_SECURE_ENV_VARS is set to true."
+
   # Save any new baseline screenshots.
   if [ -d "./node_modules/@skyux-sdk/builder" ]; then
     echo -e "Running @skyux-sdk/builder-config visual baselines..."
