@@ -15,10 +15,13 @@ if [[ "$TRAVIS_SECURE_ENV_VARS" == "true" ]]; then
     output=$(node ./node_modules/@blackbaud/skyux-builder-config/scripts/visual-baselines.js) || exit
   fi
 
+  echo -e "Visual baseline output:"
   echo $output
 
   # Only run releases during a git tag build.
   if [[ -n "$TRAVIS_TAG" ]]; then
+
+    echo -e "Process git tag build..."
 
     # Allow package.json to specify a custom build script.
     if npm run | grep -q build:ci; then
@@ -28,6 +31,7 @@ if [[ "$TRAVIS_SECURE_ENV_VARS" == "true" ]]; then
       skyux build-public-library
     fi
 
+    echo -e "Executing skyux-travis/after-success..."
     cd dist
     bash <(curl -s https://blackbaud.github.io/skyux-travis/after-success.sh)
   else
